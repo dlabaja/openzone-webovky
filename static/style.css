@@ -1,27 +1,47 @@
 nav a {
   text-decoration:none;
   display: inline-block;
-  padding: 15px 5%;
+  padding: 15px 3%;
   background-color: #e16e48;
   color: #fff;
-  border-color: rgb(228, 226, 226);
+  border-color: rgba(255, 255, 255, 0.904);
   border-style:outset;
   border-radius: 10px;
   margin-bottom: 30px;
-  margin-right: 2%;
-  margin-left: 2%;
+  margin-right: 0.5%;
+  margin-left: 0.5%;
+}
+
+h2{
+  margin-bottom: 10px;
+}
+
+ul{
+  margin-top: 0px;
 }
 
 body{
   font-family: sans-serif;
   text-align: center;
-  background-color: rgb(228, 226, 226);
+  background-color: rgba(247, 245, 245, 0.562);
 }
 
 #stranka{
-  width: 80%;
+  width: 50%;
   text-align: center;
-  
+}
+
+#text h2{
+  font-size: 40px;
+}
+
+#text{
+  font-size: 20px;
+  line-height: 30px;
+}
+
+#img{
+  width: 50%;
 }
 
 .loga{
@@ -32,16 +52,18 @@ body{
   display: inline;
 }
 
-.tucne{
+h1{
   font-size: 40px;
 }
 
 .textr{
   text-align: right;
+  margin-top: 100px;
 }
 
 .textl{
   text-align: left;
+  margin-top: 100px;
 }
 
 
