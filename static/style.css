@@ -1,0 +1,48 @@
+nav a {
+  text-decoration:none;
+  display: inline-block;
+  padding: 15px 5%;
+  background-color: #e16e48;
+  color: #fff;
+  border-color: rgb(228, 226, 226);
+  border-style:outset;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  margin-right: 2%;
+  margin-left: 2%;
+}
+
+body{
+  font-family: sans-serif;
+  text-align: center;
+  background-color: rgb(228, 226, 226);
+}
+
+#stranka{
+  width: 80%;
+  text-align: center;
+  
+}
+
+.loga{
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-right: 5%;
+  margin-left: 5%;
+  display: inline;
+}
+
+.tucne{
+  font-size: 40px;
+}
+
+.textr{
+  text-align: right;
+}
+
+.textl{
+  text-align: left;
+}
+
+
+
