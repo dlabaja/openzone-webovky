@@ -23,6 +23,7 @@ ul{
 body{
   font-family: sans-serif;
   text-align: center;
+  
   background-color: rgba(247, 245, 245, 0.562);
 }
 
@@ -38,6 +39,14 @@ body{
 #text{
   font-size: 20px;
   line-height: 30px;
+  display: inline-block;
+  text-align: left;
+}
+
+#img1{
+  width: 500px;
+  display: inline-block;
+  margin-bottom: 30px;
 }
 
 #img{
@@ -45,7 +54,7 @@ body{
 }
 
 .loga{
-  margin-top: 40px;
+  margin-top: 80px;
   margin-bottom: 40px;
   margin-right: 5%;
   margin-left: 5%;
@@ -55,16 +64,5 @@ body{
 h1{
   font-size: 40px;
 }
-
-.textr{
-  text-align: right;
-  margin-top: 100px;
-}
-
-.textl{
-  text-align: left;
-  margin-top: 100px;
-}
-
 
 
