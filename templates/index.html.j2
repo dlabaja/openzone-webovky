@@ -33,11 +33,14 @@
                 </a>
                     
                 </nav> 
-            </b>
-            
-        </div>   
-        <div id="container">
-            <hr>
+            </b>          
+        </div>
+        <hr>
+        
+        
+          
+        <div id="container">  
+        {% block container %}         
             <div id="uvod">
                 <img src="static\img\logo.png" id="img" class=img> <br> 
                 <b><h1>Otevřené místo pro setkávání, sdílení, diskuzi a růst.</h1></b>
@@ -72,7 +75,7 @@
                 </div>
                 <img id="img1" src="static\img\img1.png" class="img">
             </div>
-
+    {% endblock container %} 
             <div id="footer">
                 <hr>
                 <b>(ɔ)</b> Marrek Nožka<br>
@@ -80,6 +83,7 @@
             </div>        
         </div>
     </div>
+    
     </center>
 </body>
 </html>
