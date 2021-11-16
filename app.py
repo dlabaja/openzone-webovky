@@ -3,6 +3,8 @@ import random
 
 app = Flask(__name__)
 
+#git test
+#jinja-html v include, hodnota html
 
 @app.route("/")
 def index():
