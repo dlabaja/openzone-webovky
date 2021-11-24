@@ -6,10 +6,27 @@ h2{
   margin-bottom: 10px;
 }
 
+a{
+  text-decoration:none;
+  color: #fff;
+}
+
 body{
   font-family: sans-serif;
   text-align: center; 
   background-color: rgba(247, 245, 245, 0.562);
+}
+
+.animace:hover{
+  cursor: pointer;
+  transition: transform .2s;
+  transform: scale(1.2)
+}
+
+.animace:not(:hover){
+  cursor: pointer;
+  transition: transform .2s;
+  transform: scale(1)
 }
 
 .loga{
@@ -37,8 +54,7 @@ body{
   transform: scale(1)
 }
 
-#topnav a{
-  text-decoration:none;
+#topnav a{ 
   margin-bottom: 10px;
   margin-right: 0.5%;
   margin-left: 0.5%;
@@ -73,6 +89,23 @@ body{
 #openzone{
   padding: 1% 2%;
   width: 21%;
+}
+
+#form_button{
+  font-size:larger;
+  padding: 20px 8%;
+  background-color: #e16e48;
+  color: #fff;
+  border-style:outset;
+  border-radius: 10px;
+}
+
+#footer{
+  margin-top: 40px;
+}
+
+#dotaznik{
+  text-align: left;
 }
 
 

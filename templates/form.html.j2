@@ -1,0 +1,18 @@
+{% extends "index.html.j2" %}
+{% block container %}
+<form id="dotaznik">
+    <label for="name">Jméno:</label>
+    <input type="text" name="name"><br><br>
+   
+    Vyberte možnost<br><br>
+
+    <input type="radio" id="js" name=form>
+    <label for="js">JavaScript</label><br>
+    <input type="radio" id="clang" name=form>
+    <label for="clang">C lang</label><br>
+    <input type="radio" id="python" name="form">
+    <label for="python">Python</label><br>
+    <br>
+    <input type="submit" name="submit" value="Odeslat">
+</form>
+{% endblock container %}
