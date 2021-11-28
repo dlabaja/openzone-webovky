@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="static\img\favicon.png">  
     <link rel="stylesheet" href="static\style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <title>OpenZone</title>
 </head>
 <body>
@@ -76,19 +78,41 @@
             <div id="form">
                 <b><h2>Dotazníky a průzkumy</h2></b>
                 <h3>Občas se tu koná nějaké to hlasování, budeme rádi za jakoukoliv účast :)</h3>
-                    <button id="form_button" type="button" onclick="location.href='form'" class="animace">Hlasovat</button>
-            <script src="scripts\chart.js"></script>
+                <button id="form_button" type="button" onclick="location.href='form'" class="animace">Hlasovat</button>
+                <div id="graf">
+                    <canvas id="chart" width="600" height="400"></canvas>
+                    <script>
+                        var ctx = document.getElementById("chart").getContext("2d")
+                        var labels = {{labels}}
+                        var colors = ["#95478e", "#efd81d", "#3470a2"]
+                        var values = {{values}}
+                        var pieChart = new Chart(ctx,{
+                        type: "pie",
+                        data:{
+                            datasets: [{
+                            data: values,
+                            backgroundColor: colors
+                            }],
+                            labels: labels
+                        },
+                        options: {
+                            responsive: true,
+                            legend:{
+                            position:"bottom"
+                            } 
+                        }
+                        })
+                    </script>
+                </div>  
             </div>
-        </div>  
-        {% endblock container %}  
-        <div id="footer">
-            <hr>
-            <b>(ɔ)</b> Marrek Nožka<br>
-            Stránka by Jan Dlabaja
-        </div>  
-                     
-    </div>
-    
+        </div>
+    </div>  
+    {% endblock container %}  
+    <div id="footer">       
+        <hr><b>(ɔ)</b> Marrek Nožka<br>
+         Stránka by Jan Dlabaja
+        </div>                       
+    </div> 
     </center>
 </body>
 </html>

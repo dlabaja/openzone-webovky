@@ -8,9 +8,14 @@ import config
 app = Flask(__name__)
 app.secret_key = config.secret
 
+client = MongoClient(config.connection_string)
+db = client["openzone"]
+coll = db["form"]
+
 @app.route("/")
 def index():
-    return render_template("index.html.j2")
+    votes = getVotes()
+    return render_template("index.html.j2", labels = votes[0], values = votes[1])
 
 @app.route("/form", methods=['GET', 'POST'])
 def form():
@@ -19,10 +24,9 @@ def form():
         if form.validate_on_submit():
             name = form.name.data
             choice = form.choice.data
+            vote(choice, name)
 
-            database(choice, name)
-
-            #session["voted"] = True
+            session["voted"] = True
             return render_template("form_completed.html.j2", form = form)
         return render_template("form.html.j2", form = form)
     return render_template("form_completed.html.j2", form = form)
@@ -33,7 +37,7 @@ def page_not_found(e):
 
 class Form(FlaskForm):
     name = StringField("Jméno", widget = widgets.Input(input_type = "text"), validators=[InputRequired("Musíte zadat jméno")])
-    choice = RadioField("Vyberte možnost", choices=[("js" ,"Javascript"), ("clang", "C lang"), ("py", "Python")], validators=[InputRequired("Musíte zadat možnost")])
+    choice = RadioField("Vyberte možnost", choices=[("Javascript" ,"Javascript"), ("C lang", "C lang"), ("Python", "Python")], validators=[InputRequired("Musíte zadat možnost")])
 
 def hasVoted():
     for item in session:
@@ -41,17 +45,35 @@ def hasVoted():
             return True
     return False
 
-def database(choice, name):
-    client = MongoClient(config.connection_string)
-    db = client["openzone"]
-    coll = db["form"]
+def vote(choice, name):
+    global coll
+    _coll = coll
 
     from bson.objectid import ObjectId
-    query = coll.find_one({"_id": ObjectId("619d38f7b9673a94534feb35")})
-    print(int(dict(query).get(choice)))
+    query = _coll.find_one({"_id": ObjectId("619d38f7b9673a94534feb35")})
     newvalues = { "$set": { choice:  int(dict(query).get(choice)) + 1}, "$addToSet":{"names":f"{name}, {choice}"} }
-    coll.update_one(dict(query), newvalues)
+    _coll.update_one(dict(query), newvalues)
 
+def getVotes():
+    global coll
+    _coll = coll
+
+    labels = []
+    values = []
+
+    from bson.objectid import ObjectId
+    for item in dict(_coll.find_one({"_id": ObjectId("619d38f7b9673a94534feb35")})):
+        if item != "_id" and item != "names":
+            labels.append(item)
+    
+    for item in dict(_coll.find_one({"_id": ObjectId("619d38f7b9673a94534feb35")})).values():
+        if item != ObjectId("619d38f7b9673a94534feb35") and type(item) != list:
+            values.append(item)
+
+    return labels, values
+
+
+    
     
 
 
