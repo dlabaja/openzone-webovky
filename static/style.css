@@ -54,6 +54,13 @@ body{
   transform: scale(1)
 }
 
+#chart{
+  max-height: 500px;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
 #topnav a{ 
   margin-bottom: 10px;
   margin-right: 0.5%;
