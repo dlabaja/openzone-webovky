@@ -3,12 +3,10 @@ from pymongo import MongoClient
 from flask_wtf import FlaskForm
 from wtforms import StringField, RadioField, widgets 
 from wtforms.validators import InputRequired
-import pymongo
 import config
 
 app = Flask(__name__)
 app.secret_key = config.secret
-client = MongoClient(config.connection_string)
 
 @app.route("/")
 def index():
@@ -21,7 +19,9 @@ def form():
         if form.validate_on_submit():
             name = form.name.data
             choice = form.choice.data
-            print(name + choice)
+
+            database(choice, name)
+
             #session["voted"] = True
             return render_template("form_completed.html.j2", form = form)
         return render_template("form.html.j2", form = form)
@@ -40,3 +40,18 @@ def hasVoted():
         if item == "voted":
             return True
     return False
+
+def database(choice, name):
+    client = MongoClient(config.connection_string)
+    db = client["openzone"]
+    coll = db["form"]
+
+    from bson.objectid import ObjectId
+    query = coll.find_one({"_id": ObjectId("619d38f7b9673a94534feb35")})
+    print(int(dict(query).get(choice)))
+    newvalues = { "$set": { choice:  int(dict(query).get(choice)) + 1}, "$addToSet":{"names":f"{name}, {choice}"} }
+    coll.update_one(dict(query), newvalues)
+
+    
+
+
