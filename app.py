@@ -1,8 +1,8 @@
 from flask import Flask, render_template, session, request
 from pymongo import MongoClient
 from flask_wtf import FlaskForm
-from wtforms import StringField, RadioField, widgets 
-from wtforms.validators import InputRequired
+from wtforms import StringField, RadioField, widgets , EmailField, PasswordField
+from wtforms.validators import InputRequired, Length
 import config
 
 app = Flask(__name__)
@@ -12,6 +12,9 @@ client = MongoClient(config.connection_string)
 db = client["openzone"]
 coll = db["form"]
 
+#registrace vygeneruje klíč, uložení do cookie, přihlášení podle klíče
+#login stránka přesměruje na domovskou. nahradí jméno v rohu
+
 @app.route("/")
 def index():
     votes = getVotes()
@@ -20,7 +23,7 @@ def index():
 @app.route("/form", methods=['GET', 'POST'])
 def form():
     form = Form()    
-    if not hasVoted():
+    if not hasVoted:
         if form.validate_on_submit():
             name = form.name.data
             choice = form.choice.data
@@ -38,6 +41,15 @@ def page_not_found(e):
 class Form(FlaskForm):
     name = StringField("Jméno", widget = widgets.Input(input_type = "text"), validators=[InputRequired("Musíte zadat jméno")])
     choice = RadioField("Vyberte možnost", choices=[("Javascript" ,"Javascript"), ("C lang", "C lang"), ("Python", "Python")], validators=[InputRequired("Musíte zadat možnost")])
+
+class RegisterForm(FlaskForm):
+    name = StringField("Jméno", widget = widgets.Input(input_type = "text"), validators=[InputRequired("Musíte zadat jméno")])
+    email = EmailField("Email", widget = widgets.Input(input_type = "text"), validators=[InputRequired("Musíte zadat email")])
+    password = PasswordField("Heslo", validators=[InputRequired("Musíte zadat heslo")])
+    #passwordAgain = PasswordField("Znovu heslo", validators=[InputRequired("Musíte zadat heslo"), EqualTo(password)])
+
+class LoginForm(FlaskForm):
+    name = "a"
 
 def hasVoted():
     for item in session:
