@@ -6,9 +6,15 @@ h2{
   margin-bottom: 10px;
 }
 
-a{
+.aloga{
   text-decoration:none;
   color: #fff;
+
+}
+
+.text{
+  text-decoration:none;
+  color: #000;
 }
 
 body{
@@ -52,6 +58,11 @@ body{
 .img:not(:hover){
   transition: transform .2s;
   transform: scale(1)
+}
+
+#login{
+  text-align: right;
+  font-size: large;
 }
 
 #chart{
