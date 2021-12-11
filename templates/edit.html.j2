@@ -1,0 +1,11 @@
+{% extends "index.html.j2" %}
+{% block container %}
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.choice }}<br>
+        <input type="submit" value="Odeslat">
+    </form>
+    <a href="/dropdb"><input type="button" value="Resetovat hlasování"></a> <br>
+    {{votes}}<br>
+    {{names}}
+{% endblock container %}
