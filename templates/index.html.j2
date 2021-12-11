@@ -14,7 +14,12 @@
     <center>
     <div id="stranka">
         <div id="login">
-            <a class="text" id="login" href="/login">Přihlásit&nbspse</a>
+            {%if session.get("user")%}
+                Jsi přihlášen jako {{session.get("user")}}. <a href="/logout">Odhlásit se?</a>
+            {% else %}
+                <a class="text" id="login" href="/login">Přihlásit&nbspse</a>
+            {% endif %}
+            
         </div>     
         <div id="topnav">
             <b> 

@@ -2,7 +2,7 @@
 {% block container %}
 <form method="POST">
     {{ form.hidden_tag() }}
-    Jméno: {{ form.name }}<br>
+    Dotazník vyplňuješ jako <b>{{ session.get("user") }}</b><br>
     {{ form.choice }}<br>
     <input type="submit" value="Odeslat">
 {% endblock container %}
