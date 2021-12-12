@@ -82,7 +82,10 @@ def login():
 @app.route("/logout")
 def logout():
     session.pop("user")
-    session.pop("admin")
+    try:
+        session.pop("admin")
+    except:
+        print("rip")
     return redirect(url_for("index")) 
 
 def getLoginInfo(username):
