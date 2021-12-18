@@ -30,6 +30,13 @@ def setRegister(name, email, password):
             "admin":False}
     query = coll.insert_one(bson)
 
+def AddChoice(data):
+    global _coll
+    coll = _coll
+    query = coll.find_one({"_id": ObjectId(config.form_id)})
+    newvalue = {"$set":{f"votes.{data}":1}}
+    coll.update_one(dict(query), newvalue)
+
 def hash(password):
     salt = os.urandom(32)
     key = hashlib.pbkdf2_hmac("sha256", str(password).encode("utf-8"), salt, 100000)
@@ -97,14 +104,7 @@ def getVoteCollection():
             string =string+ f"{item}<br>"
     return string
 
-def hexGenerator(count):
-    colors = []
-    for x in range(count):
-        r = lambda: random.randint(0,255)
-        colors.append('#%02X%02X%02X' % (r(),r(),r()))
-    return colors
-
-def RemoveVotes():
+def DropVotes():
     global _coll
     coll = _coll
     query = coll.find_one({"_id": ObjectId(config.form_id)},{"votes":1,"_id":0})
@@ -112,6 +112,7 @@ def RemoveVotes():
   
     bson = {"votes":{}}
     coll.replace_one(query, bson)
+    _votedcoll.drop()
 
 def getChoices():  
     global _coll

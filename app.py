@@ -1,46 +1,31 @@
 from flask import Flask, render_template, session, request, redirect, url_for, abort
-from pymongo import MongoClient
 from flask_wtf import FlaskForm
 from wtforms import StringField, RadioField, widgets , EmailField, PasswordField, validators
 from wtforms.validators import InputRequired, Length, EqualTo, Email, DataRequired
-from bson.objectid import ObjectId
 from db import *
-import email_validator
-import config, hashlib, random
+import email_validator, config
 
 app = Flask(__name__)
 app.secret_key = config.secret
 
-client = MongoClient(config.connection_string)
-db = client["openzone"]
-_coll = db["form"]
-_usercoll = db["users"]
-_votedcoll = db["voted"]
-
 @app.route("/")
 def index():
     votes = getVotes()
-    return render_template("index.html.j2", labels = votes[0], values = votes[1], colors = hexGenerator(len(votes[0])))
+    return render_template("index.html.j2", labels = votes[0], values = votes[1], count = len(votes[0]))
 
 @app.route("/edit", methods=['GET','POST'])
 def edit():
     if(session.get("admin") == True):
         form = AddToForm()
         if form.validate_on_submit():
-            global _coll
-            coll = _coll
-            query = coll.find_one({"_id": ObjectId(config.form_id)})
-            newvalue = {"$set":{f"votes.{form.choice.data}":0}}
-            coll.update_one(dict(query), newvalue)
-
+            AddChoice(form.choice.data)
         return render_template("edit.html.j2", names = getNameCollection(), votes = getVoteCollection(), form = form)
     abort(404)
 
 @app.route("/dropdb")
 def dropdb():
     if(session.get("admin") == True):
-        RemoveVotes()
-        _votedcoll.drop()
+        DropVotes()
         return redirect("/edit")
     abort(404)
 
