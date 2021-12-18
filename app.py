@@ -1,6 +1,6 @@
 from flask import Flask, render_template, session, request, redirect, url_for, abort
 from flask_wtf import FlaskForm
-from wtforms import StringField, RadioField, widgets , EmailField, PasswordField, validators
+from wtforms import StringField, RadioField, widgets , EmailField, PasswordField, validators, SubmitField
 from wtforms.validators import InputRequired, Length, EqualTo, Email, DataRequired
 from db import *
 import email_validator, config
@@ -11,21 +11,26 @@ app.secret_key = config.secret
 @app.route("/")
 def index():
     votes = getVotes()
-    return render_template("index.html.j2", labels = votes[0], values = votes[1], count = len(votes[0]))
+    return render_template("index.html.j2", labels = votes[0], values = votes[1], tema = getTema(), count = len(votes[0]))
 
 @app.route("/edit", methods=['GET','POST'])
 def edit():
     if(session.get("admin") == True):
-        form = AddToForm()
-        if form.validate_on_submit():
-            AddChoice(form.choice.data)
-        return render_template("edit.html.j2", names = getNameCollection(), votes = getVoteCollection(), form = form)
+        votesForm = AddChoice()
+        temaForm = AddTema()        
+        if temaForm.submit2.data and temaForm.validate():       
+            addTema(temaForm.choice.data)
+            return redirect(url_for("edit"))    
+        if votesForm.submit1.data and votesForm.validate():
+            addChoice(votesForm.choice.data)
+            return redirect(url_for("edit"))
+        return render_template("edit.html.j2", names = getNameCollection(), votes = getVoteCollection(), tema = getTema(), votesForm = votesForm, temaForm = temaForm)
     abort(404)
 
 @app.route("/dropdb")
 def dropdb():
     if(session.get("admin") == True):
-        DropVotes()
+        dropVotes()
         return redirect("/edit")
     abort(404)
 
@@ -91,13 +96,16 @@ def register_post():
         return render_template("registered.html.j2", form = form)
      return render_template("register.html.j2", form = form)
 
-
-
 class Form(FlaskForm):
     choice = RadioField("Vyberte možnost", choices=getChoices(), validators=[InputRequired("Musíte zadat možnost")])
 
-class AddToForm(FlaskForm):
-    choice = StringField("Volba", widget = widgets.Input(input_type = "text"), validators=[InputRequired("Musíte zadat volbu")])
+class AddChoice(FlaskForm):
+    choice = StringField("Volba", widget = widgets.Input(input_type = "text"), validators=[InputRequired("Musíte zadat možnost")])
+    submit1 = SubmitField("submit")
+
+class AddTema(FlaskForm):
+    choice = StringField("Tema", widget = widgets.Input(input_type = "text"), validators=[InputRequired("Musíte zadat možnost")])
+    submit2 = SubmitField("submit")
 
 class RegisterForm(FlaskForm):
     name = StringField("Jméno", widget = widgets.Input(input_type = "text"), validators=[InputRequired("Musíte zadat jméno")])

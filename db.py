@@ -30,11 +30,18 @@ def setRegister(name, email, password):
             "admin":False}
     query = coll.insert_one(bson)
 
-def AddChoice(data):
+def addChoice(data):
     global _coll
     coll = _coll
     query = coll.find_one({"_id": ObjectId(config.form_id)})
     newvalue = {"$set":{f"votes.{data}":1}}
+    coll.update_one(dict(query), newvalue)
+
+def addTema(data):
+    global _coll
+    coll = _coll
+    query = coll.find_one({"_id": ObjectId(config.form_id)})
+    newvalue = {"$set":{"tema":data}}
     coll.update_one(dict(query), newvalue)
 
 def hash(password):
@@ -97,14 +104,21 @@ def getNameCollection():
 def getVoteCollection():
     global _coll
     coll = _coll
-    query = dict(coll.find_one({"_id": ObjectId(config.form_id)}, {"_id": 0 }))
-    string = "<b>Možnosti ankety:</b><br>"
+    query = dict(coll.find_one({"_id": ObjectId(config.form_id)}, {"_id": 0, "votes":1}))
+    string = ""
     for _item in query.values():
         for item in _item:
             string =string+ f"{item}<br>"
+
     return string
 
-def DropVotes():
+def getTema():
+    global _coll
+    coll = _coll
+    query = dict(coll.find_one({"_id": ObjectId(config.form_id)}, {"_id": 0,"tema":1 }))
+    return query.get("tema")
+
+def dropVotes():
     global _coll
     coll = _coll
     query = coll.find_one({"_id": ObjectId(config.form_id)},{"votes":1,"_id":0})
