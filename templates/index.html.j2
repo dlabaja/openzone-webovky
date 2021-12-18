@@ -7,7 +7,11 @@
     <link rel="shortcut icon" href="static\img\favicon.png">  
     <link rel="stylesheet" href="static\style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="https://d3js.org/d3-color.v1.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="/static/script.js"></script>
     <title>OpenZone</title>
 </head>
 <body>
@@ -96,17 +100,22 @@
                 <div id="graf">
                     <canvas id="chart" width="600" height="400"></canvas>
                     <script>
+                        const colorRangeInfo = {
+                        colorStart: 0.3,
+                        colorEnd: 1,
+                        useEndAsStart: false,
+                        };
+
                         var ctx = document.getElementById("chart").getContext("2d")
                         var labels = {{labels}}
-                        var colors = {{colors}}
+                        var colors = interpolateColors(5, d3.interpolateOrRd, colorRangeInfo);
                         var values = {{values}}
                         var pieChart = new Chart(ctx,{
                         type: "pie",
                         data:{
                             datasets: [{
                             data: values,
-                            backgroundColor: colors
-                            }],
+                            backgroundColor: colors}],
                             labels: labels
                         },
                         options: {
@@ -116,6 +125,7 @@
                             } 
                         }
                         })
+                        
                     </script>
                 </div>  
             </div>

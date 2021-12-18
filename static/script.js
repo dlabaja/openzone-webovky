@@ -1,20 +1,23 @@
-var ctx = document.getElementById("chart").getContext("2d")
-var labels = ["C lang", "JavaScript", "Python"]
-var colors = ["#95478e", "#efd81d", "#3470a2"]
-var values = [10,6,9]
-var pieChart = new Chart(ctx,{
-  type: "pie",
-  data:{
-    datasets: [{
-      data: values,
-      backgroundColor: colors
-    }],
-    labels: labels
-  },
-  options: {
-    responsive: true,
-    legend:{
-      position:"bottom"
-    } 
+function calculatePoint(i, intervalSize, colorRangeInfo) {
+    var { colorStart, colorEnd, useEndAsStart } = colorRangeInfo;
+    return (useEndAsStart
+      ? (colorEnd - (i * intervalSize))
+      : (colorStart + (i * intervalSize)));
   }
-})
+  
+  /* Must use an interpolated color scale, which has a range of [0, 1] */
+  function interpolateColors(dataLength, colorScale, colorRangeInfo) {
+    console.log(colorArray);
+    var { colorStart, colorEnd } = colorRangeInfo;
+    var colorRange = colorEnd - colorStart;
+    var intervalSize = colorRange / dataLength;
+    var i, colorPoint;
+    var colorArray = [];
+  
+    for (i = 0; i < dataLength; i++) {
+      colorPoint = calculatePoint(i, intervalSize, colorRangeInfo);
+      colorArray.push(colorScale(colorPoint));
+    }
+    
+    return colorArray;
+  }
