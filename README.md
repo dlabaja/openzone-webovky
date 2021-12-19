@@ -2,7 +2,6 @@
 Web napsaný v pythonu za pomoci jinji a mongodb
 
 Pro spuštění budete potřebovat mongo a *config.py* soubor, který vložíte do projektu. Ten bude obsahovat následující
-
 \
 **secret = b'SECRET KEY (náhodná čísla ke cookies a formu)'**\
 **connection_string = "MONGO DB CONNECTION STRING"**\
