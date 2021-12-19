@@ -2,7 +2,11 @@
 {% block container %}
 <form method="POST">
     {{ form.hidden_tag() }}
-    Dotazník vyplňuješ jako <b>{{ session.get("user") }}</b><br>
-    {{ form.choice }}<br>
-    <input type="submit" value="Odeslat"></form>
+    <h5>Dotazník vyplňuješ jako <i>{{ session.get("user") }}</i></h5>
+    <strong>{{tema}}</strong>
+    <div id="radio">
+            {{ form.choice(class="radio")}}<br>
+    </div> 
+    <input type="submit" value="Odeslat" class="submit">
+</form>
 {% endblock container %}

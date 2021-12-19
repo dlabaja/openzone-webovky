@@ -2,11 +2,11 @@
 {% block container %}
 <form method="POST">
     {{ form.hidden_tag() }}
-    Jméno: {{ form.name }}<br>
-    Email: {{ form.email }}<br>
-    Heslo: {{ form.password }}<br>
-    Znovu heslo: {{ form.passwordAgain }}<br>
-    <input type="submit" value="Zaregistrovat se"><br><br>
+    {{ form.name(class="form") }}<br>
+    {{ form.email(class="form") }}<br>
+    {{ form.password(class="form") }}<br>
+    {{ form.passwordAgain(class="form") }}<br>
+    <input type="submit" value="Zaregistrovat se" class="submit"><br><br>
     Již máte účet? Přihlaste se <a class="text" 
     href="/login">zde</a>
 {% endblock container %}

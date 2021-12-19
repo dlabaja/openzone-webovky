@@ -2,15 +2,15 @@
 {% block container %}
     <form method="POST" id="tema">
         {{ temaForm.hidden_tag() }}
-        Název ankety: {{ temaForm.choice }}<br>
-        {{ temaForm.submit2 }}
+        Název ankety: {{ temaForm.choice (class="form")}}<br>
+        {{ temaForm.submit2 (class="submit", value="Potvrdit")}}
     </form>
     <form method="POST" id="votes">
         {{ votesForm.hidden_tag() }}
-        Možnosti ankety: {{ votesForm.choice }}<br>
-        {{ votesForm.submit1 }}
+        Možnosti ankety: {{ votesForm.choice (class="form")}}<br>
+        {{ votesForm.submit1 (class="submit", value="Potvrdit")}}
     </form>
-    <a href="/dropdb"><input type="button" value="Resetovat hlasování"></a> <br><br><br>
+    <a href="/dropdb"><input type="button" value="Resetovat hlasování" class="submit"></a> <br><br><br>
     <b>Téma ankety:</b><br>{{tema}}<br>
     <b>Možnosti ankety:</b><br>{{votes}}<br>
     {{names}}

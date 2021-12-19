@@ -16,7 +16,6 @@ def getLoginInfo(username):
     if query == None:
         return False
     query = dict(query)
-    print("aaa")
     return query.get("name"), query.get("email"), query.get("password"), query.get("salt"), query.get("admin")
 
 def setRegister(name, email, password):
@@ -68,7 +67,6 @@ def vote(choice):
     coll = _coll
     global _votedcoll
     votedcoll = _votedcoll
-    print(choice)
     query = coll.find_one({"_id": ObjectId(config.form_id)})
     coll.update_one(dict(query), { "$set": { f"votes.{choice}":  int(dict(query).get("votes").get(choice)) + 1}})
 
@@ -86,8 +84,8 @@ def getVotes():
     values = []
 
     for item in query.get("votes"):
-            labels.append(item)          
-            values.append(query.get("votes").get(item))
+        labels.append(item)          
+        values.append(query.get("votes").get(item))
 
     return labels, values
 
@@ -122,7 +120,6 @@ def dropVotes():
     global _coll
     coll = _coll
     query = coll.find_one({"_id": ObjectId(config.form_id)},{"votes":1,"_id":0})
-    print(query)
   
     bson = {"votes":{}}
     coll.replace_one(query, bson)

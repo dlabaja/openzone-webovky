@@ -42,7 +42,7 @@ def _dropdb():
 
 @app.route("/form", methods=['GET', 'POST'])
 def form():
-    Form.choice = RadioField("Vyberte možnost", choices=getChoices(), validators=[InputRequired("Musíte zadat možnost")])
+    Form.choice = RadioField("Vyberte možnost", choices=getChoices() ,validators=[InputRequired("Musíte zadat možnost")])
     form = Form()    
     if session.get("user", False):
         if not hasVoted():
@@ -51,7 +51,7 @@ def form():
                 vote(choice)
 
                 return render_template("form_completed.html.j2", form = form)
-            return render_template("form.html.j2", form = form)
+            return render_template("form.html.j2", tema = getTema(), form = form)
         return render_template("form_completed.html.j2", form = form)
     return render_template("acces_denied.html.j2", form = form)
     
@@ -89,7 +89,6 @@ def register_post():
      name = form.name.data
      email = form.email.data
      password = form.password.data
-     print(form.errors.items())
      if form.validate_on_submit():
         setRegister(name, email, password)
         session["user"] = name
@@ -108,14 +107,14 @@ class AddTema(FlaskForm):
     submit2 = SubmitField("submit")
 
 class RegisterForm(FlaskForm):
-    name = StringField("Jméno", widget = widgets.Input(input_type = "text"), validators=[InputRequired("Musíte zadat jméno")])
-    email = EmailField("Email", [validators.DataRequired(), validators.Email()])
-    password = PasswordField("Heslo", validators=[InputRequired("Musíte zadat heslo")])
-    passwordAgain = PasswordField("Znovu heslo", validators=[InputRequired("Musíte zadat heslo"), EqualTo("password", "Hesla se neshodují")])
+    name = StringField("Jméno", widget = widgets.Input(input_type = "text"), validators=[InputRequired("Musíte zadat jméno")], render_kw={"placeholder": "Nick"})
+    email = EmailField("Email", [validators.DataRequired(), validators.Email()], render_kw={"placeholder": "Email"})
+    password = PasswordField("Heslo", validators=[InputRequired("Musíte zadat heslo")], render_kw={"placeholder": "Heslo"})
+    passwordAgain = PasswordField("Znovu heslo", validators=[InputRequired("Musíte zadat heslo"), EqualTo("password", "Hesla se neshodují")], render_kw={"placeholder": "Znovu heslo"})
 
 class LoginForm(FlaskForm):
-    name = StringField("Jméno", widget = widgets.Input(input_type = "text"), validators=[InputRequired("Musíte zadat jméno")])
-    password = PasswordField("Heslo", validators=[InputRequired("Musíte zadat heslo")])
+    name = StringField("Jméno", widget = widgets.Input(input_type = "text"), validators=[InputRequired("Musíte zadat jméno")], render_kw={"placeholder": "Nick"})
+    password = PasswordField("Heslo", validators=[InputRequired("Musíte zadat heslo")], render_kw={"placeholder": "Heslo"})
 
 
     

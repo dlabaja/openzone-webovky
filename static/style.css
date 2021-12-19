@@ -4,17 +4,11 @@ h1{
 
 h2{
   margin-bottom: 10px;
+  font-size: 40px;
 }
 
-.aloga{
+a{
   text-decoration:none;
-  color: #fff;
-
-}
-
-.text{
-  text-decoration:none;
-  color: #000;
 }
 
 body{
@@ -60,15 +54,39 @@ body{
   transform: scale(1)
 }
 
+.form{
+  margin: 0.4%;
+  padding: 0.5em 1em;
+  border-radius: 2px;
+  border: solid 1px #ccc;
+  text-align: left;
+}
+
+.submit{
+  margin-top: 10px;
+  border-radius: 2px;
+  border: solid 1px #ccc;
+  padding: 5px 20px;
+  font-size: small;
+}
+
+.radio{
+  text-align: left;
+  display: inline-block;
+}
+
+#radio{
+  text-align: center
+}
+
 #login{
   text-align: right;
   font-size: large;
 }
 
 #chart{
-  max-height: 500px;
+  max-width: 100%;
   margin: auto;
-  width: 50%;
   padding: 10px;
 }
 
@@ -79,12 +97,7 @@ body{
 }
 
 #stranka{
-  width: 50%;
-  text-align: center;
-}
-
-#text h2{
-  font-size: 40px;
+  width: 50%;  
 }
 
 #text{

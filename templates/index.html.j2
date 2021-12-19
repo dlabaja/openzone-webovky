@@ -17,47 +17,41 @@
 <body>
     <center>
     <div id="stranka">
-        <div id="login">
-            {%if session.get("user")%}
-                Jsi přihlášen jako {{session.get("user")}}. <a href="/logout">Odhlásit se?</a>
-            {% else %}
-                <a class="text" id="login" href="/login">Přihlásit&nbspse</a>
-            {% endif %}
-            {%if session.get("admin") == true%}
-                <br>Jsi admin a můžeš <a href="/edit">editovat stránky<a>
-            {% endif %}
-        </div>     
         <div id="topnav">
+            <div id="login">
+                {%if session.get("user")%}
+                    Jsi přihlášen jako {{session.get("user")}}. <a href="/logout">Odhlásit se?</a>
+                {% else %}
+                    <a id="login" href="/login">Přihlásit&nbspse</a>
+                {% endif %}
+                {%if session.get("admin") == true%}
+                    <br>Jsi admin a můžeš <a href="/edit">editovat stránky<a>
+                {% endif %}
+            </div>            
             <b> 
                 <nav>
-                <a href="https://discord.gg/wWBuHHhSVC" class="aloga">
+                <a href="https://discord.gg/wWBuHHhSVC">
                     <img src="static\img\discord.png" alt="Discord" class="loga">
                 </a>
-                <a href="https://t.me/joinchat/Ut4LHWMsb3qSnVEM" class="aloga">
+                <a href="https://t.me/joinchat/Ut4LHWMsb3qSnVEM">
                     <img src="static\img\telegram.png" alt="Telegram" class="loga">
                 </a>
-                <a href="/" class="aloga">
+                <a href="/">
                     <img src="static\img\openzone.png" alt="openzone" class="loga" id="openzone">
                 </a>
-                <a href="https://GitLab.com/OpenZone" class="aloga">
+                <a href="https://GitLab.com/OpenZone">
                     <img src="static\img\gitlab.png" alt="GitLab"  class="loga">
                 </a>
                 </a>
-                <a href="https://www.spseol.cz/zajmova-cinnost/zajmova-cinnost/zajmova-cinnost/619-openzone" class="aloga">
+                <a href="https://www.spseol.cz/zajmova-cinnost/zajmova-cinnost/zajmova-cinnost/619-openzone">
                     <img src="static\img\spseol.png" alt="SPŠEOL" class="loga">
-                </a>
-                
-
-                    
-                </nav> 
-                
+                </a> 
+                </nav>                 
             </b>          
         </div>
         
         <hr>
-        
-        
-          
+                 
         <div id="container">  
         {% block container %}         
             <div id="uvod">
@@ -96,6 +90,7 @@
             <div id="form">
                 <b><h2>Dotazníky a průzkumy</h2></b>
                 <h3>Občas se tu koná nějaké to hlasování, budeme rádi za jakoukoliv účast :)</h3>
+                {% if count != 0|int() %}
                 <h4>Téma ankety: {{tema}}</h4>
                 <button id="form_button" type="button" onclick="location.href='form'" class="animace">Hlasovat</button>
                 <div id="graf">
@@ -112,7 +107,7 @@
                         var colors = interpolateColors({{count}}, d3.interpolateOrRd, colorRangeInfo);
                         var values = {{values}}
                         var pieChart = new Chart(ctx,{
-                        type: "pie",
+                        type: "doughnut",
                         data:{
                             datasets: [{
                             data: values,
@@ -128,7 +123,12 @@
                         })
                         
                     </script>
-                </div>  
+                </div>
+                {% else %}
+                <br><br><br><br>
+                <strong>Zatím se žádné hlasování nekoná. Zastav se později :)</strong>
+                <br><br><br><br>
+                {%endif%}  
             </div>
         </div>
     </div>  
