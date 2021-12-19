@@ -1,5 +1,5 @@
-# openzone-webovky
-Web napsaný v pythonu za pomoci jinji a mongodb
+# Openzone webovky
+Web napsaný v pythonu za pomoci jinji a mongodb do openzone kroužku
 
 Pro spuštění budete potřebovat mongo a *config.py* soubor, který vložíte do projektu. Ten bude obsahovat následující: \
 
