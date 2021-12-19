@@ -7,6 +7,5 @@
     {{ form.password(class="form") }}<br>
     {{ form.passwordAgain(class="form") }}<br>
     <input type="submit" value="Zaregistrovat se" class="submit"><br><br>
-    Již máte účet? Přihlaste se <a class="text" 
-    href="/login">zde</a>
+    Již máte účet? Přihlaste se <a class="text" href="{{url_for('login')}}">zde</a>
 {% endblock container %}

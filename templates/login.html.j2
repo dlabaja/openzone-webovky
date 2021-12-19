@@ -5,5 +5,5 @@
     {{ form.name(class="form") }}<br>
     {{ form.password(class="form") }}<br>
     <input type="submit" value="Přihlásit se" class="submit"><br><br>
-    Nemáte účet? Založte si ho <a class="text" href="/register">zde</a>
+    Nemáte účet? Založte si ho <a class="text" href="{{url_for('register')}}">zde</a>
 {% endblock container %}

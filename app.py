@@ -81,10 +81,8 @@ def logout():
         print("rip")
     return redirect(url_for("index")) 
 
-
-
 @app.route("/register", methods=['GET','POST'])
-def register_post():
+def register():
      form = RegisterForm() 
      name = form.name.data
      email = form.email.data

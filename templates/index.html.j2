@@ -20,12 +20,12 @@
         <div id="topnav">
             <div id="login">
                 {%if session.get("user")%}
-                    Jsi přihlášen jako {{session.get("user")}}. <a href="/logout">Odhlásit se?</a>
+                    Jsi přihlášen jako {{session.get("user")}}. <a href="{{url_for('logout')}}">Odhlásit se?</a>
                 {% else %}
-                    <a id="login" href="/login">Přihlásit&nbspse</a>
+                    <a id="login" href="{{url_for('login')}}">Přihlásit&nbspse</a>
                 {% endif %}
                 {%if session.get("admin") == true%}
-                    <br>Jsi admin a můžeš <a href="/edit">editovat stránky<a>
+                    <br>Jsi admin a můžeš <a href="{{url_for('edit')}}">editovat stránky<a>
                 {% endif %}
             </div>            
             <b> 
@@ -36,7 +36,7 @@
                 <a href="https://t.me/joinchat/Ut4LHWMsb3qSnVEM">
                     <img src="static\img\telegram.png" alt="Telegram" class="loga">
                 </a>
-                <a href="/">
+                <a href="{{url_for('index')}}">
                     <img src="static\img\openzone.png" alt="openzone" class="loga" id="openzone">
                 </a>
                 <a href="https://GitLab.com/OpenZone">
@@ -55,11 +55,11 @@
         <div id="container">  
         {% block container %}         
             <div id="uvod">
-                <img src="static\img\logo.png" id="img" class=img> <br> 
+                <img src="static\img\logo.png" id="img" class="img"> <br> 
                 <b><h1>Otevřené místo pro setkávání, sdílení, diskuzi a růst.</h1></b>
                 <h3>Kroužek se odehrává formou workshopů, do kterých se každý účastník přihlašuje dle svého zájmu. Každý workshop končí vyčerpáním tématu nebo účastníků.</h3>
             </div>
-            <br><br><br><br><br><br>
+            <br>
             <div id="text">
                 <div id="workshopy">
                     <b><h2>Přehled oblastí pro wokshopy:</h2></b>
@@ -92,7 +92,7 @@
                 <h3>Občas se tu koná nějaké to hlasování, budeme rádi za jakoukoliv účast :)</h3>
                 {% if count != 0|int() %}
                 <h4>Téma ankety: {{tema}}</h4>
-                <button id="form_button" type="button" onclick="location.href='form'" class="animace">Hlasovat</button>
+                <button id="form_button" type="button" onclick="location.href='{{url_for('form')}}'" class="animace">Hlasovat</button>
                 <div id="graf">
                     <canvas id="chart" width="600" height="400"></canvas>
                     <script>

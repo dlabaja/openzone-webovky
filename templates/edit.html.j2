@@ -10,7 +10,7 @@
         Možnosti ankety: {{ votesForm.choice (class="form")}}<br>
         {{ votesForm.submit1 (class="submit", value="Potvrdit")}}
     </form>
-    <a href="/dropdb"><input type="button" value="Resetovat hlasování" class="submit"></a> <br><br><br>
+    <a href="{{url_for('dropdb')}}"><input type="button" value="Resetovat hlasování" class="submit"></a> <br><br><br>
     <b>Téma ankety:</b><br>{{tema}}<br>
     <b>Možnosti ankety:</b><br>{{votes}}<br>
     {{names}}
