@@ -1,7 +1,7 @@
 # Openzone webovky
 Web napsaný v pythonu za pomoci jinji a mongodb do openzone kroužku
 
-Pro spuštění budete potřebovat mongo a *config.py* soubor, který vložíte do projektu. Ten bude obsahovat následující: \
+Pro spuštění budete potřebovat mongo a *config.py* soubor, který vložíte do projektu. Ten bude obsahovat následující:
 
 **secret = b'SECRET KEY (náhodná čísla ke cookies a formu)'**\
 **connection_string = "MONGO DB CONNECTION STRING"**\
