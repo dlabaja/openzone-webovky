@@ -1,3 +1,5 @@
+#pro příště: neinstalovat bson
+
 from flask import Flask, render_template, session, request, redirect, url_for, abort
 from pymongo import MongoClient
 from bson.objectid import ObjectId

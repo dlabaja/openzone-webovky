@@ -1,6 +1,8 @@
+# coding=utf-8
+
 from flask import Flask, render_template, session, request, redirect, url_for, abort
 from flask_wtf import FlaskForm
-from wtforms import StringField, RadioField, widgets , EmailField, PasswordField, validators, SubmitField
+from wtforms import StringField, RadioField, widgets, EmailField, PasswordField, validators, SubmitField
 from wtforms.validators import InputRequired, Length, EqualTo, Email, DataRequired
 from db import *
 import email_validator, config
@@ -42,7 +44,7 @@ def _dropdb():
 
 @app.route("/form", methods=['GET', 'POST'])
 def form():
-    Form.choice = RadioField("Vyberte možnost", choices=getChoices() ,validators=[InputRequired("Musíte zadat možnost")])
+    Form.choice = RadioField("Vyberte moznost", choices=getChoices() ,validators=[InputRequired("Musite zadat moznost")])
     form = Form()    
     if session.get("user", False):
         if not hasVoted():
@@ -94,14 +96,14 @@ def register():
      return render_template("register.html.j2", form = form)
 
 class Form(FlaskForm):
-    choice = RadioField("Vyberte možnost", choices=getChoices(), validators=[InputRequired("Musíte zadat možnost")])
+    choice = RadioField("Vyberte moznost", choices=getChoices(), validators=[InputRequired("Musite zadat moznost")])
 
 class AddChoice(FlaskForm):
-    choice = StringField("Volba", widget = widgets.Input(input_type = "text"), validators=[InputRequired("Musíte zadat možnost")])
+    choice = StringField("Volba", widget = widgets.Input(input_type = "text"), validators=[InputRequired("Musite zadat moznost")])
     submit1 = SubmitField("submit")
 
 class AddTema(FlaskForm):
-    choice = StringField("Tema", widget = widgets.Input(input_type = "text"), validators=[InputRequired("Musíte zadat možnost")])
+    choice = StringField("Tema", widget = widgets.Input(input_type = "text"), validators=[InputRequired("Musite zadat moznost")])
     submit2 = SubmitField("submit")
 
 class RegisterForm(FlaskForm):
